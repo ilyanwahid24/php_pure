@@ -55,3 +55,39 @@ INSERT INTO
     )
     ;
 
+DROP TABLE IF EXISTS comment;
+
+CREATE TABLE comment (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    post_id INTEGER NOT NULL,
+    created_at VARCHAR NOT NULL,
+    name VARCHAR NOT NULL,
+    webiste VARCHAR,
+    text VARCHAR NOT NULL,  
+);
+
+INSERT INTO
+    comment(
+        post_id, created_at, name, webiste, text
+    )
+    VALUES(
+        1,
+        date('now', '-10 days'),
+        'Jimmy',
+        'http://example.com',
+        "This is Jimmy's contribution"
+    )
+;
+
+INSERT INTO
+    comment(
+        post_id, created_at, name, website, text
+    )
+    VALUES(
+        1,
+        date('now', '-8 days'),
+        'Jonny',
+        'http://anotherexample.com/',
+        "This is a comment from Jonny"
+    )
+;
