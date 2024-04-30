@@ -48,7 +48,7 @@ foreach(array('post', 'comment') as $tableName){
         $stmt = $pdo->query($sql);
         if ($stmt){
             // We store each count in an associative array
-            $count[$tableName] = $stmt->fetchColumn():
+            $count[$tableName] = $stmt->fetchColumn();
         }
     }
 }
@@ -93,5 +93,6 @@ foreach(array('post', 'comment') as $tableName){
             <?php endforeach ?>
         </div>
     <?php endif ?>
+    <?php echo exec('whoami'); ?>
 </body>
 </html>
