@@ -1,14 +1,15 @@
 <?php
+require_once 'lib/common.php';
 // Work out the path to the database, so SQLite/PDO can connect
 $root = __DIR__;
 $database = $root . '/data/data.sqlite';
 $dsn = 'sqlite:' . $database;
 
 // Connect to the database, run a query, handle errors
-$pdo = new PDO($dsn);
+$pdo = getPDO();
 $stmt = $pdo->query(
 	'SELECT
-		title, created_at, body
+		id, title, created_at, body
 	FROM
 		post
 	ORDER BY
@@ -27,37 +28,22 @@ if ($stmt === false){
 	<title>A blog application</title>
 </head>
 <body>
+	<?php require 'template/title.php' ?>
 	<h1>Blog title</h1>
 	<p>This paragraph summarises what the blog is about.</p>
 
-	<!-- Full Of repetition, simplified using php -->
-	<!-- <h2>Article 1 title</h2>
-	<div>dd Mon YYYY</div>
-	<p>A paragraph summarising article 1.</p>
-	<p>
-		<a href="#">Read more...</a>
-	</p>
-
-	<h2>Article 2 title</h2>
-	<div>dd Mon YYYY</div>
-	<p>A paragraph summarising article 2.</p>
-	<p>
-		<a href="#">Read more...</a>
-	</p> -->
-
-	<!-- The Code using php is below -->
 	<?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
 		<h2>
-			<?php echo htmlspecialchars($row['title'], ENT_HTML5, 'UTF-8') ?>
+			<?php echo htmlEscape($row['title']) ?>
 		</h2>
 		<div>
 			<?php echo $row['created_at'] ?>
 		</div>
 		<p>
-			<?php echo htmlspecialchars($row['body'], ENT_HTML5, 'UTF-8') ?>
+			<?php echo htmlEscape($row['body']) ?>
 		</p>
 		<p>
-			<a href="#">Read more...</a>
+			<a href="view-post.php?post_id=<?php echo $row['id'] ?>">Read more...</a>
 		</p>
 		<?php endwhile ?>
 	
